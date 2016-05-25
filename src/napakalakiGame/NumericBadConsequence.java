@@ -48,7 +48,7 @@ public class NumericBadConsequence extends BadConsequence{
         }else{
             hres = nHiddenTreasures;
         }
-        BadConsequence res = new NumericBadConsequence(text+"(MODIFICADO)",0,hres,vres);
+        BadConsequence res = new NumericBadConsequence(text+"(MODIFICADO)",0,vres,hres);
         return res;
     }
     public String toString(){

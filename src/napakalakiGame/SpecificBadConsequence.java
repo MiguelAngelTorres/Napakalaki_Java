@@ -34,10 +34,13 @@ public class SpecificBadConsequence extends BadConsequence{
     }
     @Override
     public BadConsequence adjustToFitTreasureLists(ArrayList<Treasure> v, ArrayList<Treasure> h){
-        ArrayList<TreasureKind> aux = new ArrayList(specificVisibleTreasures);
+        ArrayList<TreasureKind> aux = new ArrayList();
         ArrayList<TreasureKind> Visible = new ArrayList();
         ArrayList<TreasureKind> Hidden = new ArrayList();
-            
+        
+        for(Treasure i : v){   
+           aux.add(i.getType());
+        }
         for(Treasure i : v){
             for(TreasureKind j : aux){
                 if(i.getType() == j){
@@ -46,7 +49,11 @@ public class SpecificBadConsequence extends BadConsequence{
                 }
             }
         }
-        aux = new ArrayList(specificHiddenTreasures);
+        aux.clear();
+        for(Treasure i : v){   
+           aux.add(i.getType());
+        }
+ 
         for(Treasure i : h){
             for(TreasureKind j : aux){
                 if(i.getType() == j){

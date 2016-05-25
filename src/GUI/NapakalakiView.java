@@ -54,6 +54,7 @@ public class NapakalakiView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         currentPlayer = new javax.swing.JPanel();
@@ -66,6 +67,17 @@ public class NapakalakiView extends javax.swing.JFrame {
         Mensaje2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(240, 240, 20));
+        setBounds(new java.awt.Rectangle(0, 0, 1200, 1200));
+        setForeground(java.awt.Color.pink);
+        setIconImages(null);
+        setLocation(new java.awt.Point(0, 0));
+        setMinimumSize(new java.awt.Dimension(1000, 1200));
+        setSize(new java.awt.Dimension(100, 100));
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${Napakalaki}"), this, org.jdesktop.beansbinding.BeanProperty.create("title"));
+        bindingGroup.addBinding(binding);
+
         getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Eras Light ITC", 0, 18)); // NOI18N
@@ -125,6 +137,8 @@ public class NapakalakiView extends javax.swing.JFrame {
         getContentPane().add(Mensaje2);
         Mensaje2.setBounds(680, 480, 600, 20);
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -144,8 +158,8 @@ public class NapakalakiView extends javax.swing.JFrame {
     private void combatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combatActionPerformed
         CombatResult res = napakalakiModel.developCombat();
         if(CombatResult.WIN == res){
-            Mensaje1.setText("Equípate y pulsa conocer monstruo cuando estés preparado.");
-            Mensaje2.setText("No podrás volver a cambiar tu equipo");
+            Mensaje1.setText("Has ganado a esa bestia.");
+            Mensaje2.setText("Bien luchado novato");
         }else if(CombatResult.LOSE == res){
             Mensaje1.setText("¡Que deshonra! Has perdido la batalla.");
             Mensaje2.setText("Tendrás que hacer frente a las consecuencias");
@@ -166,14 +180,26 @@ public class NapakalakiView extends javax.swing.JFrame {
     }//GEN-LAST:event_combatActionPerformed
 
     private void nextTurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTurnActionPerformed
+        String m1,m2 ;
+        boolean correcto;
         if(!napakalakiModel.nextTurn()){
-            Mensaje1.setText("Tienes algún mal rollo pendiente, no puedes continuar.");
-            Mensaje2.setText("");
+            m1 = "Tienes algún mal rollo pendiente, no puedes continuar.";
+            m2 = "";
+            correcto = false;
         }else{
-            Mensaje1.setText("Por hoy ya has hecho suficiente.");
-            Mensaje2.setText("Espera a tu siguiente turno");
+            m1 = "Equípate y pulsa conocer monstruo cuando estés preparado";
+            m2 = "No podrás volver a cambiar tu equipo";
+            correcto = true;
         }
         setNapakalaki(napakalakiModel);
+        Mensaje1.setText(m1);
+        Mensaje2.setText(m2);
+        nextTurn.setEnabled(!correcto);
+        nextTurn.setVisible(!correcto);
+        combat.setEnabled(false);
+        combat.setVisible(false);
+        meetMonster.setEnabled(correcto);
+        meetMonster.setVisible(correcto);
         repaint();
     }//GEN-LAST:event_nextTurnActionPerformed
 
@@ -188,5 +214,6 @@ public class NapakalakiView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton meetMonster;
     private javax.swing.JButton nextTurn;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

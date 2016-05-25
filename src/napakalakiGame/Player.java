@@ -7,6 +7,7 @@ package napakalakiGame;
 
 import GUI.Dice;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Player {
     static int MAXLEVEL = 10;
@@ -203,10 +204,12 @@ public class Player {
         return level;
     }
     public void discardAllTreasures(){
-        for(Treasure treas : visibleTreasure){
+        for (Iterator<Treasure> it = visibleTreasure.iterator(); it.hasNext();) {
+            Treasure treas = it.next();
             discardVisibleTreasure(treas);
         }
-        for(Treasure treas : hiddenTreasure){
+        for (Iterator<Treasure> it = hiddenTreasure.iterator(); it.hasNext();) {
+            Treasure treas = it.next();
             discardHiddenTreasure(treas);
         }
     }
